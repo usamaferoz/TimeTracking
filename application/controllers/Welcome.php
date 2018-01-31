@@ -18,9 +18,10 @@ class Welcome extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function index()
-	{
+	public function index(){
 		$this->load->helper('url');
-		$this->load->view('welcome_message');
+		$this->load->model('timeTrackingModel');
+		$data['tasks'] = $this->timeTrackingModel->getTask();
+		$this->load->view('welcome_message', $data);
 	}
 }

@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<script type="application/javascript" src="js/jquery.min.js"></script>
 
 	<script src="js/easytimer.min.js"></script>
-	<script type="application/javascript" src="js/login_form.js"></script>
+	<script type="application/javascript" src="js/script.js"></script>
 	<link rel="stylesheet" href="css/bootstrap.css">
 	<link rel="stylesheet" href="css/examples.min.css">
 
@@ -76,11 +76,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</style>
 </head>
 <body>
+
 <div id="container">
 	<h1>Time Tracking System</h1>
 
 	<div id="chronoExample">
-		<div>Task Description</div><div> <textarea naem="description_task" id="description_task"></textarea></div>
+		<div>Task</div><div> <select name="task" id="task">
+				<?php
+				foreach ($tasks as $row)
+				{
+					echo '<option value ="'.$row['id'].'">'.$row['title'].'</option>';
+				}?>
+			</select></div>
 		<div class="values">00:00:00</div>
 		<div>
 			<button class="startButton">Start</button>
