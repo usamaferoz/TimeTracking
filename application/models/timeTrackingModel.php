@@ -26,14 +26,17 @@ class timeTrackingModel extends CI_Model {
 
         $sql = "INSERT INTO duration (id,start_timestamp,creation_timestamp) value (?,now(),now())";
         if($query = $this->db->query($sql, array($task))){
+            $insert_id = $this->db->insert_id();
+            $sql = "INSERT INTO durations (id) value (?)";
+            $query = $this->db->query($sql, array($insert_id));
             return true;
         }else{
             return false;
         }
     }
 
-    private function updateTask($task,$min){
-        $sql = "INSERT INTO durations (id,start_timestamp,creation_timestamp) value (?,now(),now())";
+    public function autoUpdateTask($task){
+        $sql = "UPDATE durations  SET duration = duration + 1 WHERE task_id = ?";
         if($query = $this->db->query($sql, array($task))){
             return true;
         }else{
@@ -45,7 +48,7 @@ class timeTrackingModel extends CI_Model {
         $sql = "SELECT duration FROM durations where task_id = ?";
         if($query = $this->db->query($sql, array($task))){
             $row = $query->result();
-            return $query->result_array() ;
+            return $row['duration'] ;
         }else{
             return false;
         }

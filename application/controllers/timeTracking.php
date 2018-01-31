@@ -12,9 +12,12 @@ class timeTracking extends CI_Controller {
         parent::__construct();
     }
     public function main(){
+
         if($_POST['do'] == 'start'){
-            $this->startTask($_POST['task']);;
-        }else
+            $this->startTask($_POST['task']);
+        }elseif($_POST['do'] == 'autoupdate'){
+            $this->autoUpdateTask($_POST['task']);
+        }
         exit(0);
     }
 
@@ -29,9 +32,9 @@ class timeTracking extends CI_Controller {
         exit(0);
     }
 
-    private function createTask($task){
+    private function autoUpdateTask($task){
         $this->load->model('timeTrackingModel');
-        if($this->timeTrackingModel->startTask($task) == true){
+        if($this->timeTrackingModel->autoUpdateTask($task) == true){
             echo 1 ;
         }else{
             echo 0;

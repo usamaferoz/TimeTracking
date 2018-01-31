@@ -1,5 +1,5 @@
 /**
- * Created by feroz on 1/30/2018.
+ * Created by feroz on 1/31/2018.
  */
 
 
@@ -8,8 +8,8 @@ $(document).ready(function(){
 
     var timer = new Timer();
     $('#chronoExample .startButton').click(function () {
-        $(this).disable(true);
         var task = $('#task').val();
+
         $.ajax({
             url: 'timeTracking',
             dataType: 'text',
@@ -37,12 +37,15 @@ $(document).ready(function(){
         $('#chronoExample .values').html(timer.getTimeValues().toString());
     });
     timer.addEventListener('minutesUpdated', function (e) {
+
+        //alert(timer.getTimeValues().toString());
+        var task = $('#task').val();
         $.ajax({
             url: 'timeTracking',
             dataType: 'text',
             type: 'post',
             contentType: 'application/x-www-form-urlencoded',
-            data: 'do=updateminute&task='+task,
+            data: 'do=autoupdate&task='+task,
             success: function( data, textStatus, jQxhr ){
             },
             error: function( jqXhr, textStatus, errorThrown ){
